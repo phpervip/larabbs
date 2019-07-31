@@ -17,6 +17,8 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $updated_at = $faker->dateTimeThisMonth();
+    $created_at = $faker->dateTimeThisMonth($updated_at);
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -25,5 +27,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // password
         'introduction'=>$faker->sentence(),
         'remember_token' => Str::random(10),
+        'created_at'=>$created_at,
+        'updated_at'=>$updated_at,
     ];
 });

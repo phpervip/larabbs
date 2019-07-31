@@ -11,10 +11,10 @@
       <img class="card-img-top" src="{{ $user->avatar }}" alt="{{ $user->name }}">
       <div class="card-body">
             <h5><strong>个人简介</strong></h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+            <p>{{ $user->introduction}}} </p>
             <hr>
             <h5><strong>注册于</strong></h5>
-            <p>January 01 1901</p>
+            <p>{{ $user->created_at}}} </p>
       </div>
     </div>
   </div>
@@ -29,7 +29,11 @@
     {{-- 用户发布的内容 --}}
     <div class="card ">
       <div class="card-body">
-        暂无数据 ~_~
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active bg-transparent" href="#">Ta 的话题</a></li>
+            <li class="nav-item"><a class="nav-link  bg-transparent" href="#">Ta 的回复</a></li>
+            @include('users._topics', ['topics' => $user->topics()->recent()->paginate(5)])
+        </ul>
       </div>
     </div>
 

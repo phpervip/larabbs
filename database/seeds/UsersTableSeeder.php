@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
                     $user->avatar = $faker->randomElement($avatars);
         });
 
-        $user_array = $users->makeVisible(['password','remember_token'])->toArray();
+        $user_array = $users->makeVisible(['password','remember_token','created_at','updated_at'])->toArray();
         User::insert($user_array);
 
         // 单独处理第一个用户的数据

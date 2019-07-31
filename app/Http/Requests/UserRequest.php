@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'email'=>'required|email',
             'introlduction'=>'max:80',
             'avatar'=>'mimes:jpeg,bmp,png,gif|dimensions:min_width=208,min_height=208',
-        ];
+        ]
     }
 
     public function messages()

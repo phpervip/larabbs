@@ -1,12 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top">
   <div class="container">
     <a class="navbar-brand" href="/">LaraBBS</a>
-    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggle-icon"></span>
-    </button>
+    </button> -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
-      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav mr-auto">
+         <li class="nav-item {{ active_class(if_route('topics.index'))}}" ><a class="nav-link" href="{{ route('topics.index') }}">话题</a></li>
+         <li class="nav-item {{ category_nav_active(1)}}" ><a class="nav-link" href="{{ route('categories.show', 1) }}">分享</a></li>
+         <li class="nav-item {{ category_nav_active(2)}}" ><a class="nav-link" href="{{ route('categories.show', 2) }}">教程</a></li>
+         <li class="nav-item {{ category_nav_active(3)}}" ><a class="nav-link" href="{{ route('categories.show', 3) }}">问答</a></li>
+         <li class="nav-item {{ category_nav_active(4)}}" ><a class="nav-link" href="{{ route('categories.show', 4) }}">公告</a></li>
+
+      </ul>
       <!-- Right Side Of Navbar -->
       <ul class="navbar-nav navbar-right">
           <!-- Authentication Links -->

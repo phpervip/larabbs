@@ -8,9 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\ActiveUserHelper;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
+    use Traits\ActiveUserHelper;
 
     use HasRoles;
 

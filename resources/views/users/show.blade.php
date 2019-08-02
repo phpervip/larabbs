@@ -15,6 +15,8 @@
             <hr>
             <h5><strong>注册于</strong></h5>
             <p>@if($user->created_at){{ $user->created_at->diffForHumans() }}@endif</p>
+            <hr>
+            <p title="{{  $user->last_actived_at }}">{{ $user->last_actived_at->diffForHumans() }}</p>
       </div>
     </div>
   </div>

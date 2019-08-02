@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cache;
 
 class Link extends Model
+
 {
     protected $fillable = ['title','link'];
 

@@ -42,6 +42,11 @@ return array(
             'roles',
             'permissions',
         ],
+         '内容管理' => [
+            'categories',
+            'topics',
+            'replies',
+        ],
     ],
 
     /*
@@ -83,4 +88,5 @@ return array(
 
     // 可选的语言，如果不为空，将会在页面顶部显示『选择语言』按钮
     'locales' => [],
+
 );

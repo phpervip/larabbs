@@ -15,7 +15,7 @@ class VerificationCodesController extends Controller
 
         if(!app()->environment('production')){
             // 非真机发送
-            $code  = 1234;
+            $code  = '1234';
         }else{
             // 真机发送.
                 // 生成4位随机数,左侧补0

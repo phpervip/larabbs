@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Topic;
 use App\Models\Reply;
 use App\Transformers\ReplyTransformer;
-use App\Http\Requests\ReplyRequest;
+use App\Http\Requests\Api\ReplyRequest;
+use Illuminate\Http\Request;
 
 
 
@@ -32,5 +34,28 @@ class RepliesController extends Controller
         $reply->delete();
 
         return $this->response->noContent();
+    }
+
+
+    public function index(Topic $topic){
+
+        $replies = $topic->replies()->paginate(20);
+        return $this->response->paginator($replies, new ReplyTransformer());
+    }
+
+
+        public function userIndex(User $user, Request $request)
+    {
+
+        //
+         app(\Dingo\Api\Transformer\Factory::class)->disableEagerLoading();
+
+        $replies = $user->replies()->paginate(20);
+
+        if($request->include){
+            $replies->load(explode(',',$request->include));
+        }
+
+        return $this->response->paginator($replies, new ReplyTransformer());
     }
 }

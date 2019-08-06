@@ -82,6 +82,10 @@ $api->version('v1',[
         $api->get('users/{user}/replies','RepliesController@userIndex')
             ->name('api.users.replies.index');
 
+         // 资源推荐
+         $api->get('links','LinksController@index')
+            ->name('api.links.index');
+
 
         // 需要token验证的接口
         $api->group(['middleware'=>'api.auth'],function($api){
@@ -129,9 +133,10 @@ $api->version('v1',[
             $api->patch('user/read/notifications', 'NotificationsController@read')
                 ->name('api.user.notifications.read');
 
-                // 当前登录用户权限
+            // 当前登录用户权限
             $api->get('user/permissions', 'PermissionsController@index')
                 ->name('api.user.permissions.index');
+
 
 
         });

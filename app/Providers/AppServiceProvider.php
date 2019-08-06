@@ -17,6 +17,20 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
         }
 
+          \API::error(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException  $exception)  {
+        throw new \Symfony\Component\HttpKernel\Exception\HttpException(404,  '404 Not Found');
+        });
+
+          \API::error(function (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
+            abort(404);
+        });
+
+        \API::error(function (\Illuminate\Auth\Access\AuthorizationException $exception) {
+            abort(403, $exception->getMessage());
+        });
+
+
+
     }
 
     /**

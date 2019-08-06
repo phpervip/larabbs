@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Transformers\TopicTransformer;
-
 use App\Http\Requests\Api\TopicRequest;
 
 
@@ -30,5 +29,13 @@ class TopicsController extends Controller
 
         return $this->response->item($topic, new TopicTransformer());
 
+    }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy',$topic);
+
+        $topic->delete();
+        return $this->response->noContent();
     }
 }

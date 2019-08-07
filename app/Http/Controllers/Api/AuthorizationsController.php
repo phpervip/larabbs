@@ -10,23 +10,20 @@ use App\Http\Requests\Api\WeappAuthorizationRequest;
 use Auth;
 
 use Psr\Http\Message\ServerRequestInterface;
-use League\OAuth2\Server\AuthorizationServer;
+// use League\OAuth2\Server\AuthorizationServer;
 use Zend\Diactoros\Response as Psr7Response;
 use League\OAuth2\Server\Exception\OAuthServerException;
 
 class AuthorizationsController extends Controller
 {
 
-     public function store(AuthorizationRequest $originRequest, AuthorizationServer $server, ServerRequestInterface $serverRequest){
+     public function store(AuthorizationRequest $request){
 
-
-        try {
-            return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response)->withStatus(201);
-        } catch(OAuthServerException $e) {
-            return $this->response->errorUnauthorized($e->getMessage());
-        }
-
-
+        // try {
+        //     return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response)->withStatus(201);
+        // } catch(OAuthServerException $e) {
+        //     return $this->response->errorUnauthorized($e->getMessage());
+        // }
 
         $username = $request->username;
 
@@ -37,11 +34,17 @@ class AuthorizationsController extends Controller
         $credentials['password'] = $request->password;
 
         if(!$token = \Auth::guard('api')->attempt($credentials)){
-            // return $this->response->errorUnauthorized('用户名或密码错误');
-             return $this->response->errorUnauthorized(trans('auth.failed'));
+            return $this->response->errorUnauthorized('用户名或密码错误');
+            // return $this->response->errorUnauthorized(trans('auth.failed'));
         }
 
-        return $this->respondWithToken($token);
+        // return $this->respondWithToken($token);
+
+        return $this->response->array([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
+        ])->setStatusCode(201);
 
     }
 
@@ -95,11 +98,13 @@ class AuthorizationsController extends Controller
                 break;
         }
 
-        // $token = \Auth::guard('api')->fromUser($user);
-        // return $this->respondWithToken($token);
+       // return $this->response->array(['token' => $user->id]);
 
-        $result = $this->getBearerTokenByUser($user, '1', false);
-        return $this->response->array($result)->setStatusCode(201);
+        $token = \Auth::guard('api')->fromUser($user);
+        return $this->respondWithToken($token);
+
+        // $result = $this->getBearerTokenByUser($user, '1', false);
+        // return $this->response->array($result)->setStatusCode(201);
     }
 
 
@@ -114,41 +119,17 @@ class AuthorizationsController extends Controller
     }
 
 
-    // public function update(AuthorizationServer $server, ServerRequestInterface $serverRequest)
-    // {
-    //     // $token = Auth::guard('api')->refresh();
-    //     // return $this->respondWithToken($token);
-
-    //     try {
-    //        return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
-    //     } catch(OAuthServerException $e) {
-    //         return $this->response->errorUnauthorized($e->getMessage());
-    //     }
-    // }
-
-
-     public function update(AuthorizationServer $server, ServerRequestInterface $serverRequest)
+     public function update()
     {
-        try {
-           return $server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
-        } catch(OAuthServerException $e) {
-            return $this->response->errorUnauthorized($e->getMessage());
-        }
+        $token = Auth::guard('api')->refresh();
+        return $this->respondWithToken($token);
     }
-
 
 
     public function destroy()
     {
-        // Auth::guard('api')->logout();
-        // return $this->response->noContent();
-
-        if (!empty($this->user())) {
-            $this->user()->token()->revoke();
-            return $this->response->noContent();
-        } else {
-            return $this->response->errorUnauthorized('The token is invalid.');
-        }
+         Auth::guard('api')->logout();
+         return $this->response->noContent();
     }
 
     public function weappStore(WeappAuthorizationRequest $request)

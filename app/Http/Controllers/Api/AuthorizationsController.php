@@ -14,12 +14,8 @@ use League\OAuth2\Server\AuthorizationServer;
 use Zend\Diactoros\Response as Psr7Response;
 use League\OAuth2\Server\Exception\OAuthServerException;
 
-use App\Traits\PassportToken;
-
 class AuthorizationsController extends Controller
 {
-
-     use PassportToken;
 
      public function store(AuthorizationRequest $originRequest, AuthorizationServer $server, ServerRequestInterface $serverRequest){
 

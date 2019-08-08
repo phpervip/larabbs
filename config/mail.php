@@ -45,6 +45,17 @@ return [
     'port' => env('MAIL_PORT', 587),
 
     /*
+     * 证书校验
+     */
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Global "From" Address
     |--------------------------------------------------------------------------
@@ -132,5 +143,7 @@ return [
     */
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
+
+
 
 ];

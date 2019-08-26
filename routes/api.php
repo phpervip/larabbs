@@ -31,7 +31,7 @@ $api->version('v1',[
     ],function($api){
         // 游客可以访问的接口
         // 短信验证码
-            $api->post('verificationCodes','VerificationCodesController@store')
+         $api->post('verificationCodes','VerificationCodesController@store')
             ->name('api.verificationCodes.store');
 
         // 用户注册

@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'order_ttl' => 30,
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -177,6 +179,12 @@ return [
 
         App\Providers\EasySmsServiceProvider::class,
         App\Providers\JpushServiceProvider::class,
+        // 和es 全文搜索 有关的
+        Laravel\Scout\ScoutServiceProvider::class,
+        ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
+
+        // 和tnt 全文搜索 有关的
+        // TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
     ],
 
@@ -229,6 +237,34 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+    ],
+
+
+    'debug_blacklist' => [
+        '_ENV' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+            'DB_PASSWORD_MEMBER',
+            'YUNPIAN_API_KEY',
+            'REDIS_PASSWORD',
+            'MAIL_USERNAME',
+            'MAIL_PASSWORD',
+        ],
+
+        '_SERVER' => [
+            'APP_KEY',
+            'DB_PASSWORD',
+            'DB_PASSWORD_MEMBER',
+            'REDIS_PASSWORD',
+            'YUNPIAN_API_KEY',
+            'MAIL_USERNAME',
+            'MAIL_PASSWORD',
+        ],
+
+        '_POST' => [
+            'password',
+        ],
     ],
 
 ];

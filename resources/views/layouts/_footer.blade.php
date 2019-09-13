@@ -8,3 +8,13 @@
     <p class="float-right"><a href="http://beauty.yyii.info">亿莲科技.技术支持</a></p>
   </div>
 </footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?db7527122f8b2308b0f1a94f1304f698";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
